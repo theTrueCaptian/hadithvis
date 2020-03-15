@@ -1,0 +1,13 @@
+To scrape data:
+
+node scrape.js
+
+To see vis:
+1. node start.js
+2. navigate to http://localhost:7171/
+
+
+To run the server and see the visualization with the database connected on Maeda's computer, be sure to have the mysql server running:
+> mysql.server restart
+> node server.js
+Also make sure to run the sql dump into the "hadith" database which is easily done with MySQL Workbench. 

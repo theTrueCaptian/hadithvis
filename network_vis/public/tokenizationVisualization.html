@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<script src="https://cdn.jsdelivr.net/lodash/4.16.4/lodash.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/mark.js/7.0.1/mark.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/mark.js/7.0.1/jquery.mark.min.js"></script>
+	<script src="js/misc.js"></script>
+	<script src="js/hadithController.js"></script>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/hadithText.css">
+
+	<head lang="en">
+	    <meta charset="UTF-8">
+	    <title></title>
+
+	</head>
+
+	<body ng-app="hadithApp" ng-controller="hadithController" ng-init="init();" dir="rtl">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-1">
+					<span ng-click="setHighlighterMode(HIGHLIGHTER_STATES.chainDelimiters)">
+						<svg width="10" height="10">
+							<rect width="10" height="10" style="fill:orange;"></rect>
+						</svg>
+						Chain Delimiters:
+					</span>
+					<div ng-repeat="token in chainDelimiters" ng-click="removeToken(token, 'chainDelimiters');" >
+						<span style="background-color: orange">
+							{{token}}
+						</span>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<span ng-click="setHighlighterMode(HIGHLIGHTER_STATES.hadithDelimiters)">
+						<svg width="10" height="10">
+							<rect width="10" height="10" style="fill:yellow;"></rect>
+						</svg>
+					
+						Hadith Delimiters:
+						<div ng-repeat="token in hadithDelimiters" ng-click="removeToken(token, 'hadithDelimiters');" >
+							<span style="background-color: yellow">
+								{{token}}
+							</span>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-9"  style="">
+					<div style="overflow: auto;height:700px">
+						<!-- Show hadith non-tabular-->
+						<!--<div class="hadithText" ng-repeat="hadith in allHadithTexts" style="font-size:10px; width:100%; text-align:right;" ng-mouseup="drawTokenizationHighlights()">
+							<!--<textarea ng-attr-id="{{ 'textarea-' + $index }}" class="hadithTextarea" style="font-size:small; width:100%;" ng-mouseup="drawNewHighlight('textarea-' + $index, hadith.hadithText);">
+								{{hadith.hadithText}}
+							</textarea>--
+							{{hadith.hadithText}}
+						</div>-->
+						<!-- Show hadith on top per tokenization-->
+						<!--<table dir="rtl" style="border: 1pt solid black; font-size:10px; width:75px; text-align:right; ">
+								<tr ng-repeat="tokenizedHadith in tokenizedTexts" >
+
+									<td><table style="border: 1pt solid black; width: 100%; ">
+										<tr >
+											<td style="border: 1pt solid black; white-space: nowrap;" colspan="{{tokenizedHadith.chain.length}}">
+												{{tokenizedHadith.hadith}}
+											</td>
+										</tr>
+										<tr>
+											<td class="hadithText" ng-repeat="token in tokenizedHadith.split | filter: {text:'! '} : true" style="border: 1pt solid black;" ng-mouseup="drawTokenizationHighlights()">
+												<div >
+													<span ng-if="token.type == 'text'" style="background-color: white">
+														{{token.text}}
+													</span>
+																<span ng-if="token.type == 'tokenizer'" style="background-color: orange">
+														{{token.text}}
+													</span>
+												</div>
+											</td>
+										</tr>
+
+									</table></td>
+
+								</tr>
+
+						</table>-->
+						<!-- Tabular -->
+						<table dir="rtl" style="border: 1pt solid black; font-size:10px; width:75px; text-align:right; ">
+							<tr ng-repeat="tokenizedHadith in tokenizedTexts" >
+
+								<td class="hadithText" ng-repeat="token in tokenizedHadith.chain " style="border: 1pt solid black;" ng-mouseup="drawTokenizationHighlights()">
+									<div class="scrollable">
+											<span ng-if="token.type == 'text'" style="background-color: white">
+												{{token.text.join("")}}
+											</span>
+										<span ng-if="token.type == 'tokenizer'" style="background-color: orange">
+												{{token.text.join("")}}
+											</span>
+									</div>
+								</td>
+								<td style="border: 1pt solid black;">
+									<div class="scrollable" ><span style="background-color: yellow">
+										{{tokenizedHadith.hadithDelimiter}}
+									</span></div>
+								</td>
+								<td style="border: 1pt solid black;">
+									<div class="scrollable" ><span>
+										{{tokenizedHadith.narration}}
+									</span></div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

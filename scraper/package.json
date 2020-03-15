@@ -1,0 +1,22 @@
+{
+  "name": "hadithscraper",
+  "version": "1.0.0",
+  "description": "Scrapes sunnah.org for hadiths",
+  "main": "scraper.js",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "jsesc": "^1.0.0",
+    "jsonfile": "^2.2.3",
+    "parse5": "^2.1.5",
+    "xmldom": "^0.1.22",
+    "xmlserializer": "^0.3.3",
+    "xpath": "^0.0.22",
+    "xpath.js": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maeda",
+  "license": "ISC"
+}

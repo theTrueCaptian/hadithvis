@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+ 
+<script>
+
+d3.json("hadith_raw/raw1460188829545.json", function(error, root) {
+	// Define the div for the tooltip
+	var div = d3.select("body").append("div") 
+	    .attr("class", "tooltip")       
+	    .style("opacity", 0);
+
+	var svg = d3.select("body")
+			.append("svg")
+		    	.attr("width", 5000)
+		    	.attr("height", 5000)
+
+
+	var data = root.data;
+	console.log(data)
+	var boxheight = 10;
+	var spacing = 5;
+    var hadithNameTexts = svg.selectAll("text")
+            .data(data)
+            .enter()
+            .append("svg:text")
+            .text(function(d){
+                return d.hadithname;
+            })
+            .attr("x", spacing)
+            .attr("y", function(d, i){
+                return i*(boxheight+spacing);
+            })
+            .attr("font-size", "8px");
+
+    svg.selectAll("text")
+            .data(hadithNameTexts)
+            .append("svg:rect")
+            .attr("width", boxheight)
+            .attr("height", boxheight)
+            .attr("x", function(d, j){ return j})
+            .attr("y", function(d, i){
+                return i*(boxheight+spacing);
+            })
+            .attr("stroke-width", 2)
+            .attr("stroke", "black")
+            .attr("fill", "white")
+    /*
+	for(var i=0; i<data.length; i++){
+		var y = i*(boxheight+spacing);
+		//Array of names
+		var sanad = data[i].sanad;	
+		//String of hadith name	
+		var hadithname = data[i].hadithname;
+		svg.append("text").text(hadithname).attr("x", 0).attr("y", y).attr("font-size", "8px");
+
+
+		//Display each name
+		for(var j=1; j<=sanad.length; j++){
+			var x = j*(boxheight+spacing);
+			var narratorName = sanad[j-1];
+			//svg.append("text").text(narratorName).attr("x", x).attr("y", y).attr("font-size", "8px");
+			svg.append("rect")
+				.attr("width", boxheight)
+				.attr("height", boxheight)
+				.attr("x", x)
+				.attr("y", y)
+				.attr("stroke-width", 2)
+				.attr("stroke", "black")
+				.attr("fill", "white")
+				.on("mouseover", function(d) {    
+					div.transition()    
+						.duration(200)    
+						.style("opacity", .9);    
+					div.html("Narrator: "+narratorName)  
+						.style("left", (x) + "px")   
+						.style("top", (y) + "px");
+
+					d3.select(this)
+						.style("fill", "black")
+						.style("stroke", "black");
+
+				}).on("mouseout", function(d) {   
+					div.transition()    
+						.duration(500)    
+						.style("opacity", 0)
+
+					svg.selectAll("rect")
+						.style("fill", "white")
+						.style("stroke", "black") 
+				});
+		}
+	}*/
+});
+</script>

@@ -1,0 +1,16 @@
+.highlight {
+	background: orange;
+    color: black;
+}
+td, th {
+
+    /*overflow: hidden;*/
+}
+
+td > div.scrollable {
+    width: 75px;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-x: scroll; /* Add vertical scrollbar */
+    white-space: nowrap; /* Keep it to one line*/
+}
+
